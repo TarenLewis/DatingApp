@@ -9,6 +9,8 @@ namespace DatingApp.API.Data
     
     // Name "Values" used to represent the table name that gets created when the database is "Scaffolded"
         public DbSet<Value> Values { get; set; }
-    
+
+        public DbSet<User> Users { get; set; }
+
     }
 }
