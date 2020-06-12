@@ -31,6 +31,10 @@ namespace DatingApp.API
             (Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddCors();
+            // AddScoped means that one instance is created per HTTP request,
+            // but uses the same instance in other calls within the same request....
+            // Specifies Interface, and specific instance of the interface used.
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

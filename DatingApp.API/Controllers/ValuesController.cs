@@ -11,7 +11,13 @@ namespace DatingApp.API.Controllers
     // values controller example request
     // http:localhost:5000/api/values 
     [Route("api/[controller]")]
+
+    // 1. Enforces attribute routing (located above), rather than conventional routing
+    // 2. Automatically validates the request 
     [ApiController]
+    
+    // 'ControllerBase' gives access to http responses, and actions which can be used
+    // in the controller. ('ControllerBase' does NOT have view support. 'Controller' HAS view support)
     public class ValuesController : ControllerBase
     {
         // Because this is a private field, it is standard practice to
