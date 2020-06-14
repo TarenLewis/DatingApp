@@ -1,5 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using DatingApp.API.Dtos;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,36 +27,42 @@ namespace DatingApp.API.Controllers
         // Takes username and password
         // Will be received as a JSON serialized object (Data Transfer Object).
         // The DTO will store the serialized JSON object received from the client.
-        public async Task<IActionResult> Register(string username, string password)
+        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             // Validate request
 
             // Make sure username is stored as all lowercase
-            username = username.ToLower();
+            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
             // Ensure username given does not already exist 
-            if (await _repo.UserExists(username))
+            if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username Already Exists");
 
             // Creates instance of user class
             var userToCreate = new User
             {
                 // This is the only information which has yet been passed.
-              Username = username
+              Username = userForRegisterDto.Username
             };
 
             // Registers user just created with the provided password
-            var createdUser = await _repo.Register(userToCreate, password);
+            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
             
 
 
             // Returns success message. (Should return CreatedAtRoute() function
             // in other words, location in db of newly created entity:
             // return CreatedAtRoute();
-
+        
             // This is temporary, it is the same status code as CreatedAtRoute();
             return StatusCode(201);
         }
 
     }
 }
+
+
+
+// System.Console.WriteLine("\n-\n-\n-\nDEBUG:\n\n");
+//             // Debug Here:
+//             System.Console.WriteLine("\n-\n-\n-");
