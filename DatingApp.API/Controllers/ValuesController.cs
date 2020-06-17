@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
+    [Authorize]
     // values controller example request
     // http:localhost:5000/api/values 
     [Route("api/[controller]")]
@@ -43,6 +45,11 @@ namespace DatingApp.API.Controllers
             return Ok(values);
         }
 
+        //This allow anonymous is for the purposes of experimentation
+        // to show the difference between an authorized request handlin
+        // and anonymous request being allowed. This function will
+        // be allowed to be received without a token.
+        [AllowAnonymous]
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id)

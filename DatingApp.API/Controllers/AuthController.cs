@@ -72,6 +72,7 @@ namespace DatingApp.API.Controllers
             // and pass matches what's stored in the Db for that particular user.
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
+            // THe user is not found in the database, however,
             // This does not allow the login attempt any glimpse at a "hint",
             // eg. Username exists but password is wrong, or username doesn't exist, etc.
             if (userFromRepo == null)
@@ -88,8 +89,11 @@ namespace DatingApp.API.Controllers
             };
 
             // To ensure the token is a valid token when it comes back, the server
-            // needs to sign this token. Creates and encrypts a security key and using 
-            // the key as part of the signing credentials 
+            // needs a key to sign this token. This creates and encrypts a security 
+            // key and using the key as part of the signing credentials.
+            // This AppSettings:Token in reality should not be shor t, it should
+            // be an extremely long randomly generated token. The token in this project
+            // is very short and simple for the purposes of this exersize.
             var key = new SymmetricSecurityKey(Encoding.UTF8
             .GetBytes(_config.GetSection("AppSettings:Token").Value));
 
@@ -100,7 +104,9 @@ namespace DatingApp.API.Controllers
             // expiry date for token, and sign in credentials
             var tokenDescriptor = new SecurityTokenDescriptor{
                 Subject = new ClaimsIdentity(claims),
-                // expy of 1 day is for the purposes of training.
+                // expy of 1 day is for the purposes of training. Something like
+                // a bank might have an expiration date of 30 minutes, or something
+                // less strict might be permant until logout, etc. etc.
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = creds
             };
