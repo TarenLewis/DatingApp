@@ -127,8 +127,3 @@ namespace DatingApp.API.Controllers
     }
 }
 
-
-
-// System.Console.WriteLine("\n-\n-\n-\nDEBUG:\n\n");
-//             // Debug Here:
-//             System.Console.WriteLine("\n-\n-\n-");

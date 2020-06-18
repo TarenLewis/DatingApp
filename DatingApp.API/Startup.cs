@@ -38,16 +38,23 @@ namespace DatingApp.API
             // but uses the same instance in other calls within the same request....
             // Specifies Interface, and specific instance of the interface used.
             services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>{
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                    .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
+            
+            // Using JSON Web Token Authentication.
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        // Check if key is valid
+                        ValidateIssuerSigningKey = true,
+                        // Checks for value of key inside appsettings.json file, encoded from 
+                        // string to bytearray.
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        // In this case both issuer and audience are localhost, no need to validate
+                        ValidateIssuer = false, 
+                        ValidateAudience = false
 
-                };
+                    };
             });
         }
 

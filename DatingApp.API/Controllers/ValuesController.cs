@@ -17,7 +17,7 @@ namespace DatingApp.API.Controllers
     // 1. Enforces attribute routing (located above), rather than conventional routing
     // 2. Automatically validates the request 
     [ApiController]
-    
+
     // 'ControllerBase' gives access to http responses, and actions which can be used
     // in the controller. ('ControllerBase' does NOT have view support. 'Controller' HAS view support)
     public class ValuesController : ControllerBase
@@ -35,6 +35,7 @@ namespace DatingApp.API.Controllers
         // GET api/values
         // IEnumerable is a collection of "things", in this case a collection
         // of strings
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
