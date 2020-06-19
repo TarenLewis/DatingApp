@@ -21,7 +21,7 @@ export class AuthService {
   // Injects and makes use of the HttpClient service module
   constructor(private http: HttpClient) { }
 
-  // Takes the model object passed from navbar
+  // Takes the model object passed from navbar (username/pass)
   login(model: any) {
     // POST login request ../login. Second arg
     // provides the model we are specifying. (we are not
@@ -39,4 +39,16 @@ export class AuthService {
       })
     );
   }
+
+
+  // Takes the model object passed from register component
+  // (username/pass)
+  register(model: any) {
+
+    // Makes a post request to baseURL and register route, 
+    // along with the model (username/pass) object. This
+    // is returning an observable object an must be subscribed to.
+    return this.http.post(this.baseUrl + 'register', model);
+  }
+
 }

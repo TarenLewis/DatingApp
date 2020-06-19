@@ -11,10 +11,13 @@
   <div *ngIf="registerMode" class="container">
     <div class="row justify-content-center">
       <div class="col-4">
-        <app-register></app-register>
+        <!-- Square brackets eg. [valuesFromHome] are used for an input property,
+         Whereas '(cancelregister)' parentheses are used for an output property. The outpur
+        property is provided with a method within the home class to be called, in this case
+      it is cancelRegisterMode, along with the arg: 'false' -->
+        <app-register [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-register>
       </div>
     </div>
   </div>
 </div>
 
-<p *ngFor="let value of values">{{value.name}} </p>

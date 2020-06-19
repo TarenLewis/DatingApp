@@ -18,14 +18,15 @@ export class HomeComponent implements OnInit {
     this.getValues();
   }
 
+  // Toggles registerMode as true. This is
+  // toggled when the home page is in view.
   registerToggle(){
-    this.registerMode = !this.registerMode;
+    this.registerMode = true;
   }
 
   cancel(){
   }
 
-  
   getValues() {
     this.http.get('http://localhost:5000/api/values').subscribe(response => {
       this.values = response;
@@ -34,4 +35,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
+
+  // Takes boolean arg. This is toggled with the boolean arg
+  // (false) emitted when the cancel button is clicked, in 
+  // order to  return the webpage from the register component 
+  // to the home component.
+  cancelRegisterMode(registerMode: boolean){
+    this.registerMode = registerMode;
+  }
 }
