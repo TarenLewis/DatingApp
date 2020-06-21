@@ -68,6 +68,11 @@ namespace DatingApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+
+
+            // user: taren password: pwd
+            // (used for testing purposes) throw new Exception("new exception thrown! (in AuthController.cs, Login method.)");
+
             // Checking to make sure that we have a user and the username
             // and pass matches what's stored in the Db for that particular user.
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
@@ -86,7 +91,7 @@ namespace DatingApp.API.Controllers
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 // Username Token Claim
                 new Claim(ClaimTypes.Name, userFromRepo.Username)
-            };
+                };
 
             // To ensure the token is a valid token when it comes back, the server
             // needs a key to sign this token. This creates and encrypts a security 
@@ -102,7 +107,8 @@ namespace DatingApp.API.Controllers
 
             // Create security token descriptor which contains claims, 
             // expiry date for token, and sign in credentials
-            var tokenDescriptor = new SecurityTokenDescriptor{
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
                 Subject = new ClaimsIdentity(claims),
                 // expy of 1 day is for the purposes of training. Something like
                 // a bank might have an expiration date of 30 minutes, or something
@@ -119,11 +125,14 @@ namespace DatingApp.API.Controllers
 
             // Use token variable to write token into response which is sent
             // back to the client.
-            return Ok(new {
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
-        }
+        } // end try
 
     }
+
 }
+
 

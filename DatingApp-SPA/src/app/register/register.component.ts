@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
 
   // In order to receive properties into a child 
   // component from a parent we need to use an input. 
+  // REMOVE: This property after not using 'values' anymore.
   @Input() valuesFromHome: any;
 
   // (event emitter imported specifically from angular core)
@@ -34,7 +35,7 @@ export class RegisterComponent implements OnInit {
       console.log('registration successful. User ' + this.model.username + ' registered');
     }, error => {
       // returns http error response received from server
-      console.log('error registering: ' + error);
+      console.log(error);
     
     });
   }

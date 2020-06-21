@@ -10,11 +10,14 @@ export class HomeComponent implements OnInit {
 
 
   registerMode = false;
+
+  // Values must be removed
   values: any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    // This method call also needs to be removed.
     this.getValues();
   }
 
@@ -27,6 +30,10 @@ export class HomeComponent implements OnInit {
   cancel(){
   }
 
+
+  // This method should be removed, it is only here to 
+  // display usage and communication between SQL db
+  // and angular frontend.
   getValues() {
     this.http.get('http://localhost:5000/api/values').subscribe(response => {
       this.values = response;

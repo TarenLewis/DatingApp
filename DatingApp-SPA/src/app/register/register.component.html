@@ -6,6 +6,9 @@
     <input type="text" class="form-control" required name="username" [(ngModel)]="model.username" placeholder="Username">
   </div>
 
+  <!-- This form group should be removed, it is only used
+   to demonstrate input/output properties communication between 
+   SQL db backend and the angular front end. -->
   <div class="form-group">
     <label for="favoriteValue">What is your favorite value?</label>
     <select class="form-control" id="favoriteValue">
